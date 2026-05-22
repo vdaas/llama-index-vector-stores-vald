@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groupes]
+dev = [
+  "mypy>=1.11.0",
+  "pytest>=8.0.0",
+  "pytest-mock>=3.14.0",
+  "ruff>=0.11.0",
+  "types-protobuf>=4.24.0.4,<5",
+]
+
+[project]
+name = "llama-index-vector-stores-vald"
+version = "0.1.0"
+description = "llama-index vector_stores Vald integration"
+authors = [{name = "vald team", email = "vald@vdaas.org"}]
+requires-python = ">=3.10,<4.0"
+readme = "README.md"
+license = "MIT"
+dependencies = [
+  "llama-index-core>=0.13.0,<0.15",
+  "vald-client-python>=1.7.0,<2.0.0",
+  "grpcio>=1.50",
+]
+
+[project.urls]
+Homepage = "https://vald.vdaas.org"
+Repository = "https://github.com/vdaas/llama-index-vector-stores-vald"
+Issues = "https://github.com/vdaas/llama-index-vector-stores-vald/issues"
+
+[tool.hatch.build.targets.sdist]
+include = ["llama_index/"]
+
+[tool.hatch.build.targets.wheel]
+include = ["llama_index/"]
+
+[tool.llamahub]
+contains_example = false
+import_path = "llama_index.vector_stores.vald"
+
+[tool.llamahub.class_authors]
+ValdVectorStore = "vdaas"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+disallow_untyped_defs = true
+exclude = ["_static", "build", "examples", "notebooks", "venv"]
+ignore_missing_imports = true
+namespace_packages = true
+explicit_package_bases = true
+python_version = "3.10"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "W",
+  "UP",
+  "B",
+]
+ignore = [
+  "E501",
+  "UP006",
+  "UP007",
+  "UP035",
+  "UP045",
+]
