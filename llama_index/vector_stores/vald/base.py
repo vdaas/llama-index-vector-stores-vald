@@ -34,7 +34,7 @@ DEFAULT_SEARCH_RADIUS = -1.0
 DEFAULT_SEARCH_EPSILON = 0.01
 DEFAULT_SEARCH_TIMEOUT_NS = 3_000_000_000
 
-VALD_SEARCH_CONFIG_KWARGS = "vald_saerch_config"
+VALD_SEARCH_CONFIG_KWARGS = "vald_search_config"
 
 
 class ValdVectorStore(BasePydanticVectorStore):
