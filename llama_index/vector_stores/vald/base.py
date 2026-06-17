@@ -53,7 +53,7 @@ class ValdVectorStore(BasePydanticVectorStore):
             `port` / `secure` are ignored and the caller owns the
             channel lifecycle.
         insert_mode: When True, `add()` uses Vald's Insert RPC (errors
-            on an existing id). When False(defalut), uses Upsert
+            on an existing id). When False (defalut), uses Upsert
             (inserts or updates depending on whether the id exists).
         skip_strict_exist_check: Forwarded to Insert / Upsert / Update /
             Remove configs.
@@ -310,15 +310,15 @@ class ValdVectorStore(BasePydanticVectorStore):
     def query(self, query: VectorStoreQuery, **kwargs: Any) -> VectorStoreQueryResult:
         """
         Query Vald for the top-k approximate nearest neighbors of
-        `queyr.query_embedding`.
+        `query.query_embedding`.
 
         Per-call overrides for Vald's NGT search parameters can be passed
-        via the `vald_saerch_config` kwarg:
+        via the `vald_search_config` kwarg:
 
         ```
         retriever.retrieve(
             "query",
-            vald_saerch_config={"radius": 0.5, "epsilon": 0.05, "timeout_ns": 5_000_000_000},
+            vald_search_config={"radius": 0.5, "epsilon": 0.05, "timeout_ns": 5_000_000_000},
         )
         ```
 
@@ -357,14 +357,14 @@ class ValdVectorStore(BasePydanticVectorStore):
         response = self._search_stub.Search(request)
 
         ids = [r.id for r in response.results]
-        # Vald return distance (smaller = closer). We pass it through unchanged.
+        # Vald returns distance (smaller = closer). We pass it through unchanged.
         # Strictly speaking this means smaller = more similar in the returned
         # `similarities` which inverts LlamaIndex's "higher = better" convention.
         similarities = [float(r.distance) for r in response.results]
         # Alternative: min-max normalize into [0, 1] so that closer = larger.
         # Disabled by default because the meaning of the absolute value changes
         # per query (it depends on the result set's min/max) and degenerates
-        # when the result set has sewer tahn two items.
+        # when the result set has fewer than two items.
         #
         # dists = [float(r.distance) for r in response.results]
         # if dists:

@@ -140,7 +140,7 @@ def test_bulk_add_aggregates_errors(monkeypatch: pytest.MonkeyPatch) -> None:
 
     def fake_stream_upsert(request_iter: Any) -> Any:
         requests = list(request_iter)
-        # n1 succeeds, n2 fails (Stauts, no uuid info)
+        # n1 succeeds, n2 fails (Status, no uuid info)
         yield _location_response(requests[0].vector.id)
         yield _status_response()
 
@@ -361,7 +361,7 @@ def test_caller_owned_channel_not_closed(monkeypatch: pytest.MonkeyPatch) -> Non
     assert store.client is user_channel
 
     store.close()
-    user_channel.colse.assert_not_called()
+    user_channel.close.assert_not_called()
 
 
 def test_self_owned_channel_closed(monkeypatch: pytest.MonkeyPatch) -> None:

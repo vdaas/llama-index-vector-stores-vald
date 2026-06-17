@@ -17,7 +17,7 @@ from llama_index.core import StorageContext, VectorStoreIndex
 from llama_index.core.schema import TextNode
 from llama_index.vector_stores.vald import ValdVectorStore
 
-# Connecto to a Vald gateway. Defaults: localhost:8081, insecure channel.
+# Connect to a Vald gateway. Defaults: localhost:8081, insecure channel.
 vector_store = ValdVectorStore(host="localhost", port=8081)
 
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
@@ -77,7 +77,7 @@ retriever.retrieve(
 )
 ```
 
-Recognised keys: `radius`, `epsilon`, `timeuot_ns`.
+Recognised keys: `radius`, `epsilon`, `timeout_ns`.
 `similarity_top_k` is taken from `VectorStoreQuery.similarity_top_k` (the standard LlamaIndex field) and falls back to `10`.
 
 ## Bulk ingestion
